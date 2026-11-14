@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen Parcial Avanzado y Ampliado: Endocrinología, Ictericia, Perfil Lipídico, RAAS y Laboratorio Clínico | UDES</title>
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #2b6cb0;
+            --accent-color: #3182ce;
+            --bg-color: #f7fafc;
+            --card-bg: #ffffff;
+            --text-color: #2d3748;
+            --border-color: #e2e8f0;
+            --success-color: #38a169;
+            --error-color: #e53e3e;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 10px 15px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            color: var(--primary-color);
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        header h2 {
+            color: var(--secondary-color);
+            font-size: 16px;
+            font-weight: 500;
+            margin-top: 0;
+        }
+
+        .instructions {
+            background-color: #ebf8ff;
+            border-left: 4px solid var(--secondary-color);
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 8px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .case-study {
+            background-color: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .case-study h3 {
+            margin-top: 0;
+            color: var(--secondary-color);
+            font-size: 16px;
+        }
+
+        .question-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.2s ease;
+        }
+
+        .question-card:hover {
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .question-title {
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--primary-color);
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.15s ease, border-color 0.15s ease;
+        }
+
+        .option-label:hover {
+            background-color: #f7fafc;
+            border-color: var(--accent-color);
+        }
+
+        .option-label input[type="radio"] {
+            margin-top: 4px;
+        }
+
+        .submit-container {
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        .btn-submit {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--primary-color);
+        }
+
+        #results-modal {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            background-color: #ebf8ff;
+            border: 2px solid var(--secondary-color);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        #results-modal h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+            font-size: 22px;
+        }
+
+        .feedback {
+            margin-top: 8px;
+            font-size: 13px;
+            font-style: italic;
+            display: none;
+        }
+
+        .correct-feedback { color: var(--success-color); }
+        .incorrect-feedback { color: var(--error-color); }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>EXAMEN PARCIAL DE ENDOCRINOLOGÍA Y LABORATORIO CLÍNICO</h1>
+        <h2>Universidad de Santander (UDES) — Facultad de Ciencias de la Salud<br>Prueba Integral Ampliada: Diabetes, Ictericia, Perfil Lipídico, RAAS, Hemograma y Perfil Renal</h2>
+    </header>
+
+    <div class="instructions">
+        <strong>Instrucciones Generales:</strong> Lea detenidamente cada caso clínico, analice los valores de laboratorio provistos y seleccione la opción correcta que mejor identifique los analitos alterados y su interpretación fisiopatológica. Al finalizar, puede evaluar su puntaje.
+    </div>
+
+    <form id="exam-form">
+        <!-- CASO 1 -->
+        <h2 class="section-title">Caso Clínico 1: Paciente Masculino con Descompensación Metabólica y Multiorgánica</h2>
+        <div class="case-study">
+            <p>Paciente de 60 años de edad, de sexo masculino, que consulta a las 7:00 am por sentirse mareado desde hace unas semanas. Refiere que viene del trabajo y que se tomó un café a las 2:00 am, ha perdido peso en los últimos meses. Fue revisado y a la exploración física presenta talla de 170 cm, peso de 98 kg, presión arterial de 150/90 mmHg.<br><br>
+            <strong>Resultados de laboratorio:</strong><br>
+            • HbA1c: 10%<br>
+            • Glucemia basal: 160 mg/dL<br>
+            • Glucosuria: Positiva<br>
+            • Proteinuria: Positiva<br>
+            • Perfil Hepático con alteración en transaminasas<br>
+            • Perfil lipídico: aumento de triglicéridos (TG)</p>
+        </div>
+
+        <div class="question-card" data-q="1" data-answer="B">
+            <div class="question-title">1. ¿Qué analito y valor porcentual confirma de manera definitiva que el paciente presenta un estado de hiperglucemia crónica severa mantenida durante los últimos 3 meses?</div>
+            <div class="options-list">
+                <label class="option-label"><input type="radio" name="q1" value="A"> A. Glucemia basal de 160 mg/dL.</label>
+                <label class="option-label"><input type="radio" name="q1" value="B"> B. Hemoglobina glicosilada (HbA1c) de 10%.</label>
+                <label class="option-label"><input type="radio" name="q1" value="C"> C. Presencia de glucosuria positiva en orina.</label>
+                <label class="option-label"><input type="radio" name="q1" value="D"> D. Aumento de triglicéridos en el perfil lipídico.</label>
+            </div>
+            <div class="feedback" id="fb-q1"></div>
+        </div>
+
+        <div class="question-card" data-q="2" data-answer="A">
+            <div class="question-title">2. Con una glucemia basal de 160 mg/dL y glucosuria positiva, ¿cuál es la razón fisiopatológica por la cual la glucosa aparece en la orina de este paciente?</div>
+            <div class="options-list">
+                <label class="option-label"><input type="radio" name="q2" value="A"> A. Se ha superado el umbral renal máximo de reabsorción tubular de glucosa (TmG), saturando los cotransportadores SGLT2 en el túbulo contorneado proximal.</label>
+                <label class="option-label"><input type="radio" name="q2" value="B"> B. El café consumido a las 2:00 am inhibió la reabsorción de urea a nivel medular.</label>
+                <label class="option-label"><input type="radio" name="q2" value="C"> C. El hígado hiperactivo produce un exceso de glucógeno urinario directo.</label>
+                <label class="option-label"><input type="radio" name="q2" value="D"> D. La hipertensión arterial de 150/90 mmHg destruye de forma instantánea la membrana basal glomerular.</label>
+            </div>
+            <div class="feedback" id="fb-q2"></div>
+        </div>
+
+        <div class="question-card" data-q="3" data-answer="C">
+            <div class="question-title">3. El hallazgo de proteinuria positiva sumado a la presión arterial de 150/90 mmHg y la diabetes descompensada sugiere:</div>
+            <div class="options-list">
+                <label class="option-label"><input type="radio" name="q3" value="A"> A. Una infección urinaria baja de tipo bacteriano agudo.</label>
+                <label class="option-label"><input type="radio" name="q3" value="B"> B. Un aumento transitorio de proteínas por ingesta alimentaria nocturna.</label>
+                <label class="option-label"><input type="radio" name="q3" value="C"> C. Daño microvascular glomerular temprano (nefropatía diabética e hipertensiva) con alteración de la barrera de filtración.</label>
+                <label class="option-label"><input type="radio" name="q3" value="D"> D. Disminución de la síntesis hepática de albúmina plasmática.</label>
+            </div>
+            <div class="feedback" id="fb-q3"></div>
+        </div>
+
+        <div class="question-card" data-q="4" data-answer="B">
+            <div class="question-title">4. ¿Cómo se relacionan los hallazgos de alteración en las transaminasas hepáticas y el aumento de triglicéridos con el perfil antropométrico del paciente (peso de 98 kg, talla 170 cm)?</div>
+            <div class="options-list">
+                <label class="option-label"><input type="radio" name="q4" value="A"> A. Son causados por el efecto directo de la cafeína sobre los canalículos biliares.</label>
+                <label class="option-label"><input type="radio" name="q4" value="B"> B. Reflejan un cuadro de síndrome metabólico asociado a esteatosis hepática no alcohólica (NAFLD) y resistencia a la insulina que incrementa la liberación de ácidos grasos al hígado.</label>
+                <label class="option-label"><input type="radio" name="q4" value="C"> C. Indican una obstrucción biliar extrahepática aguda por litiasis.</label>
+                <label class="option-label"><input type="radio" name="q4" value="D"> D. Muestran una hiperfunción sintética del tejido adiposo periférico.</label>
+            </div>
+            <div class="feedback" id="fb-q4"></div>
+        </div>
+
+        <div class="question-card" data-q="5" data-answer="A">
+            <div class="question-title">5. El paciente refiere haberse tomado un café a las 2:00 am debido al turno nocturno y se siente mareado. Desde el punto de vista endocrino y metabólico, ¿qué efecto hormonal directo genera el estrés y la cafeína en este contexto?</div>
+            <div class="options-list">
+                <label class="option-label"><input type="radio" name="q5" value="A"> A. Aumento de catecolaminas circulantes que estimulan la glucogenólisis y la gluconeogénesis hepática, elevando aún más la glucemia.</label>
+                <label class="option-label"><input type="radio" name="q5" value="B"> B. Supresión total de la producción de insulina en los islotes pancreáticos por bloqueo de canales de potasio.</label>
+                <label class="option-label"><input type="radio" name="q5" value="C"> C. Activación de la síntesis de triglicéridos exclusivamente en los eritrocitos.</label>
+                <label class="option-label"><input type="radio" name="q5" value="D"> D. Inducción de hipoglucemia severa por agotamiento de reservas de glucagón.</label>
+            </div>
+            <div class="feedback" id="fb-q5"></div>
+        </div>
+
+        <!-- CASO 2 -->
+        <h2 class="section-title">Caso Clínico 2: Paciente con Ictericia, Coluria y Daño Hepático Crónico</h2>
+        <div class="case-study">
+            <p>Paciente femenina de 52 años, con antecedentes de alcoholismo crónico, acude por coloración amarillenta escleral y cutánea (ictericia), coluria, acolia, distensión abdominal y astenia marcada.<br><br>
+            <strong>Resultados de laboratorio:</strong><br>
+            • Bilirrubina Total: 8.5 mg/dL (A expensas de Bilirrubina Directa/Conjugada)<br>
+            • AST (GOT): 190 U/L | ALT (GPT): 70 U/L (Relación AST/ALT > 2:1)<br>
+            • Albúmina sérica: 2.4 g/dL (Hipoalbuminemia)<br>
+            • Tiempo de Protrombina (INR): 2.3 (Prolongado)</p>
+        </div>
+
+        <div class="question-card" data-q="6" data-answer="A">
+            <div class="question-title">6. ¿Qué alteración en los analitos del perfil hepático explica directamente la aparición clínica de la ictericia colestásica/hepatocelular y la coluria en esta paciente?</div>
+            <div class="options-list">
+                <label class="option-label"><input type="radio" name="q6" value="A"> A. Elevación marcada de la bilirrubina conjugada (directa), la cual es hidrosoluble y se filtra por el riñón (coluria).</label>
+                <label class="option-label"><input type="radio" name="q6" value="B"> B. Incremento exclusivo de la bilirrubina indirecta por destrucción eritrocitaria masiva.</label>
+                <label class="option-label"><input type="radio" name="q6" value="C"> C. Disminución de la concentración sérica de fosfatasa alcalina.</label>
+                <label class="option-label"><input type="radio" name="q6" value="D"> D. Aumento en la reabsorción tubular de urobilinógeno.</label>
+            </div>
+            <div class="feedback" id="fb-q6"></div>
+        </div>
+
+        <div class="question-card" data-q="7" data-answer="B">
+            <div class="question-title">7. La relación AST/ALT mayor a 2:1 junto con la historia de alcoholismo crónico orienta hacia daño hepático alcohólico. ¿A qué se debe típicamente este patrón enzimático?</div>
+            <div class="options-list">
+                <label class="option-label"><input type="radio" name="q7" value="A"> A. A la síntesis exclusiva de ALT en el tejido adiposo subcutáneo.</label>
+                <label class="option-label"><input type="radio" name="q7" value="B"> B. A la destrucción mitocondrial inducida por etanol que libera la isoforma mitocondrial de la AST, sumado al déficit de piridoxal fosfato que inhibe la ALT.</label>
+                <label class="option-label"><input type="radio" name="q7" value="C"> C. A la depuración acelerada de ALT por el sistema linfático renal.</label>
+                <label class="option-label"><input type="radio" name="q7" value="D"> D. Al bloqueo de los receptores de membrana de la AST por metabolitos del alcohol.</label>
+            </div>
+            <div class="feedback" id="fb-q7"></div>
+        </div>
+
+        <div class="question-card" data-q="8" data-answer="B">
+            <div class="question-title">8. ¿Qué indican los hallazgos de hipoalbuminemia (2.4 g/dL) e INR prolongado (2.3) en la evaluación de la función hepática?</div>
+            <div class="options-list">
+                <label class="option-label"><input type="radio" name="q8" value="A"> A. Una hiperfunción de los conductos biliares intrahepáticos.</label>
+                <label class="option-label"><input type="radio" name="q8" value="B"> B. Pérdida severa de la capacidad sintética del hígado (insuficiencia hepática crónica), afectando proteínas plasmáticas y factores de coagulación dependientes de vitamina K.</label>
+                <label class="option-label"><input type="radio" name="q8" value="C"> C. Pérdida masiva de albúmina a través de los glomérulos renales sanos.</label>
+                <label class="option-label"><input type="radio" name="q8" value="D"> D. Destrucción acelerada de plaquetas en el bazo por hipertiroidismo.</label>
+            </div>
+            <div class="feedback" id="fb-q8"></div>
+        </div>
+
+        <!-- CASO 3 -->
+        <h2 class="section-title">Caso Clínico 3: Paciente con Dislipidemia Mixta y Síndrome Metabólico</h2>
+        <div class="case-study">
+            <p>Paciente masculino de 55 años, con antecedentes de obesidad central y sedentarismo, acude a control médico rutinario. Se solicita perfil lipídico completo en ayunas.<br><br>
+            <strong>Resultados de laboratorio:</strong><br>
+            • Colesterol Total: 270 mg/dL (Elevado)<br>
+            • Triglicéridos (TG): 320 mg/dL (Marcadamente elevados)<br>
+            • Colesterol HDL: 32 mg/dL (Bajo)<br>
+            • Colesterol LDL: 174 mg/dL (Elevado)</p>
+        </div>
+
+        <div class="question-card" data-q="9" data-answer="C">
+            <div class="question-title">9. ¿Cómo se interpreta fisiopatológicamente la combinación de triglicéridos elevados (320 mg/dL) y C-HDL bajo (32 mg/dL) en este paciente con obesidad central?</div>
+            <div class="options-list">
+                <label class="option-label"><input type="radio" name="q9" value="A"> A. Es un perfil lipídico protector contra la ateroesclerosis coronaria.</label>
+                <label class="option-label"><input type="radio" name="q9" value="B"> B. Indica un defecto primario en la síntesis intestinal de quilomicrones.</label>
+                <label class="option-label"><input type="radio" name="q9" value="C"> C. Representa la tríada aterogénica típica de la resistencia a la insulina, caracterizada por hipertrigliceridemia y disminución del HDL funcional por intercambio mediado por CETP.</label>
+                <label class="option-label"><input type="radio" name="q9" value="D"> D. Muestra una sobreactivación de los receptores hepáticos de LDL.</label>
+            </div>
+            <div class="feedback" id="fb-q9"></div>
+        </div>
+
+        <div class="question-card" data-q="10" data-answer="A">
+            <div class="question-title">10. ¿Cuál es el papel fisiológico principal de las lipoproteínas de baja densidad (C-LDL) elevadas en este paciente (174 mg/dL) en la génesis de la placa ateroesclerótica?</div>
+            <div class="options-list">
+                <label class="option-label"><input type="radio" name="q10" value="A"> A. Penetran y se retienen en el espacio subendotelial de las arterias, donde sufren oxidación, estimulan la respuesta inflamatoria y son fagocitadas por macrófagos para convertirse en células espumosas.</label>
+                <label class="option-label"><input type="radio" name="q10" value="B"> B. Transportan el exceso de colesterol desde los tejidos periféricos de vuelta hacia el hígado para su excreción biliar.</label>
+                <label class="option-label"><input type="radio" name="q10" value="C"> C. Bloquean la formación de trombos plaquetarios en la microcirculación.</label>
+                <label class="option-label"><input type="radio" name="q10" value="D"> D. Inhiben la síntesis de endotelina-1 en el endotelio vascular.</label>
+            </div>
+            <div class="feedback" id="fb-q10"></div>
+        </div>
+
+        <!-- CASO 4 -->
+        <h2 class="section-title">Caso Clínico 4: Paciente con Hipertrigliceridemia Severa y Dolor Abdominal Agudo</h2>
+        <div class="case-study">
+            <p>Paciente masculino de 42 años acude por dolor abdominal epigástrico intenso irradiado en "cinturón", náuseas y vómitos. Antecedente de consumo frecuente de alcohol y dieta rica en carbohidratos simples. Se toma muestra sanguínea observando suero lechoso (lipémico).<br><br>
+            <strong>Resultados de laboratorio:</strong><br>
+            • Triglicéridos séricos: 1,150 mg/dL (Severamente elevados)<br>
+            • Amilasa sérica: 480 U/L (Elevada)<br>
+            • Lipasa sérica: 950 U/L (Elevada)<br>
+            • Calcemia total: Disminuida (Hipocalcemia secundaria a saponificación)</p>
+        </div>
+
+        <div class="question-card" data-q="11" data-answer="B">
+            <div class="question-title">11. ¿Qué complicación aguda grave del páncreas se asocia directamente con niveles de triglicéridos superiores a 1,000 mg/dL en este paciente?</div>
+            <div class="options-list">
+                <label class="option-label"><input type="radio" name="q11" value="A"> A. Colecistitis litiásica aguda.</label>
+                <label class="option-label"><input type="radio" name="q11" value="B"> B. Pancreatitis aguda inducida por hipertrigliceridemia.</label>
+                <label class="option-label"><input type="radio" name="q11" value="C"> C. Insuficiencia suprarrenal aguda (crisis addisoniana).</label>
+                <label class="option-label"><input type="radio" name="q11" value="D"> D. Hepatitis isquémica aguda.</label>
+            </div>
+            <div class="feedback" id="fb-q11"></div>
+        </div>
+
+        <div class="question-card" data-q="12" data-answer="A">
+            <div class="question-title">12. ¿Cuál es el mecanismo fisiopatológico por el cual la hipertrigliceridemia extrema desencadena daño tisular pancreático?</div>
+            <div class="options-list">
+                <label class="option-label"><input type="radio" name="q12" value="A"> A. La hidrólisis de los quilomicrones y triglicéridos en los capilares pancreáticos por la lipasa tisular libera concentraciones tóxicas de ácidos grasos libres, induciendo lesión endotelial, isquemia y activación prematura de enzimas pancreáticas.</label>
+                <label class="option-label"><input type="radio" name="q12" value="B"> B. El colesterol LDL precipita directamente en el conducto de Wirsung bloqueando la salida de jugo pancreático.</label>
+                <label class="option-label"><input type="radio" name="q12" value="C"> C. Los triglicéridos bloquean la síntesis de bicarbonato en las células acinares.</label>
+                <label class="option-label"><input type="radio" name="q12" value="D"> D. La lipoproteína(a) inhibe competitivamente a la tripsina.</label>
+            </div>
+            <div class="feedback" id="fb-q12"></div>
+        </div>
+
+        <!-- CASO 5 -->
+        <h2 class="section-title">Caso Clínico 5: Paciente con Fatiga Crónica y Alteración en el Hemograma</h2>
+        <div class="case-study">
+            <p>Paciente femenina de 40 años que consulta por astenia, adinamia, mareos y palidez cutaneomucosa progresiva. Se solicita hemograma completo y perfil de hierro.<br><br>
+            <strong>Resultados de laboratorio:</strong><br>
+            • Hemoglobina (Hb): 9.2 g/dL (Disminuida)<br>
+            • Volumen Corpuscular Medio (VCM): 70 fL (Microcítico)<br>
+            • Hemoglobina Corpuscular Media (HCM): Disminuida (Hipocrómico)<br>
+            • Ferritina sérica: Muy baja<br>
+            • Recuento de leucocitos y plaquetas: Normales</p>
+        </div>
+
+        <div class="question-card" data-q="13" data-answer="D">
+            <div class="question-title">13. En relación con el metabolismo del hierro y la regulación sistémica de su absorción intestinal, ¿qué proteína clave actúa como el principal regulador negativo bloqueando la exportación de hierro desde los enterocitos y macrófagos hacia el plasma cuando hay reservas corporales elevadas o inflamación?</div>
+            <div class="options-list">
+                <label class="option-label"><input type="radio" name="q13" value="A"> A. La transferrina plasmática.</label>
+                <label class="option-label"><input type="radio" name="q13" value="B"> B. El receptor de transferrina tipo 1 (TfR1).</label>
+                <label class="option-label"><input type="radio" name="q13" value="C"> C. La eritropoyetina (EPO).</label>
+                <label class="option-label"><input type="radio" name="q13" value="D"> D. La hepcidina hepática.</label>
+            </div>
+            <div class="feedback" id="fb-q13"></div>
+        </div>
+
+        <div class="question-card" data-q="14" data-answer="A">
+            <div class="question-title">14. ¿Por qué razón el Volumen Corpuscular Medio (VCM) se encuentra disminuido (microcitosis) en esta alteración hematológica por deficiencia de hierro?</div>
+            <div class="options-list">
+                <label class="option-label"><input type="radio" name="q14" value="A"> A. La deficiencia de hierro limita la síntesis de hemo, lo que reduce la hemoglobinización y obliga a divisiones eritroides adicionales en la médula ósea, generando glóbulos rojos más pequeños.</label>
+                <label class="option-label"><input type="radio" name="q14" value="B"> B. Los glóbulos rojos aumentan su velocidad de destrucción en el bazo.</label>
+                <label class="option-label"><input type="radio" name="q14" value="C"> C. El plasma sanguíneo se dilata por retención excesiva de agua y sodio.</label>
+                <label class="option-label"><input type="radio" name="q14" value="D"> D. La eritropoyetina renal se inactiva por completo en el tejido adiposo.</label>
+            </div>
+            <div class="feedback" id="fb-q14"></div>
+        </div>
+
+        <!-- CASO 6 -->
+        <h2 class="section-title">Caso Clínico 6: Paciente con Insuficiencia Renal Crónica e Hipertensión</h2>
+        <div class="case-study">
+            <p>Paciente masculino de 65 años con antecedentes de hipertensión arterial esencial de 15 años mal controlada, acude por edemas matutinos en extremidades inferiores, nicturia y fatiga. Se solicitan laboratorios de control renal.<br><br>
+            <strong>Resultados de laboratorio:</strong><br>
+            • Creatinina sérica: 2.8 mg/dL<br>
+            • Tasa de Filtración Glomerular Estimada (TFGE): 30 mL/min/1.73m²<br>
+            • Nitrógeno Ureico en Sangre (BUN): 50 mg/dL<br>
+            • Potasio sérico (K+): 5.9 mEq/L (Hiperpotasemia)</p>
+        </div>
+
+        <div class="question-card" data-q="15" data-answer="C">
+            <div class="question-title">15. Con una TFGE de 30 mL/min/1.73m² y creatinina de 2.8 mg/dL, ¿en qué estadio de enfermedad renal crónica (ERC) se encuentra el paciente según las guías KDIGO?</div>
+            <div class="options-list">
+                <label class="option-label"><input type="radio" name="q15" value="A"> A. Estadio 1 (Daño renal con función normal o alta)</label>
+                <label class="option-label"><input type="radio" name="q15" value="B"> B. Estadio 2 (Disminución leve de la TFGE)</label>
+                <label class="option-label"><input type="radio" name="q15" value="C"> C. Estadio G3b (Disminución moderada a severa de la TFGE)</label>
+                <label class="option-label"><input type="radio" name="q15" value="D"> D. Estadio 5 (Falla renal terminal o en diálisis)</label>
+            </div>
+            <div class="feedback" id="fb-q15"></div>
+        </div>
+
+        <div class="question-card" data-q="16" data-answer="B">
+            <div class="question-title">16. ¿Cuál es el mecanismo fisiopatológico principal que explica la hiperpotasemia (K+ = 5.9 mEq/L) observada en este paciente con compromiso renal avanzado?</div>
+            <div class="options-list">
+                <label class="option-label"><input type="radio" name="q16" value="A"> A. Aumento en la secreción tubular proximal de potasio por estímulo de aldosterona.</label>
+                <label class="option-label"><input type="radio" name="q16" value="B"> B. Disminución de la filtración glomerular y reducción de la capacidad de secreción tubular distal de potasio en el túbulo colector.</label>
+                <label class="option-label"><input type="radio" name="q16" value="C"> C. Entrada masiva de potasio desde el espacio extracelular al intracelular mediada por insulina.</label>
+                <label class="option-label"><input type="radio" name="q16" value="D"> D. Pérdida renal excesiva de sodio que arrastra pasivamente todo el potasio corporal.</label>
+            </div>
+            <div class="feedback" id="fb-q16"></div>
+        </div>
+
+        <div class="question-card" data-q="17" data-answer="A">
+            <div class="question-title">17. ¿Por qué este paciente presenta nicturia (necesidad de levantarse a orinar varias veces por la noche) en el contexto de su insuficiencia renal?</div>
+            <div class="options-list">
+                <label class="option-label"><input type="radio" name="q17" value="A"> A. Por pérdida de la capacidad de concentración medular (isostenuria) debido a la destrucción de nefronas y alteración del gradiente osmótico medular.</label>
+                <label class="option-label"><input type="radio" name="q17" value="B"> B. Por hipersecreción nocturna de hormona antidiurética en la neurohipófisis.</label>
+                <label class="option-label"><input type="radio" name="q17" value="C"> C. Por hipertrofia obstructiva severa de la próstata.</label>
+                <label class="option-label"><input type="radio" name="q17" value="D"> D. Por consumo excesivo de líquidos hipotónicos antes de dormir.</label>
+            </div>
+            <div class="feedback" id="fb-q17"></div>
+        </div>
+
+        <!-- CASO 7: Sistema Renina Angiotensina Aldosterona (RAAS) e Hipertensión -->
+        <h2 class="section-title">Caso Clínico 7: Paciente con Hipertensión Arterial Resistente y Evaluación del Eje RAAS</h2>
+        <div class="case-study">
+            <p>Paciente masculino de 58 años con hipertensión arterial de difícil manejo (resistente a tres fármacos antihipertensivos incluyendo un diurético), se queja de debilidad muscular ocasional. Se solicitan estudios de endocrinología y marcadores del eje renina-angiotensina-aldosterona.<br><br>
+            <strong>Resultados de laboratorio:</strong><br>
+            • Presión arterial: 165/100 mmHg<br>
+            • Potasio sérico: 3.2 mEq/L (Hipopotasemia moderada)<br>
+            • Actividad de Renina Plasmática (ARP): Supuesta / Muy baja<br>
+            • Aldosterona plasmática: Elevada</p>
+        </div>
+
+        <div class="question-card" data-q="18" data-answer="C">
+            <div class="question-title">18. Con base en la hipertensión resistente, hipopotasemia espontánea, renina plasmática baja y aldosterona elevada, ¿cuál es el diagnóstico fisiopatológico más probable?</div>
+            <div class="options-list">
+                <label class="option-label"><input type="radio" name="q18" value="A"> A. Estenosis bilateral de la arteria renal.</label>
+                <label class="option-label"><input type="radio" name="q18" value="B"> B. Insuficiencia corticosuprarrenal primaria (Enfermedad de Addison).</label>
+                <label class="option-label"><input type="radio" name="q18" value="C"> C. Hiperaldosteronismo primario (Síndrome de Conn).</label>
+                <label class="option-label"><input type="radio" name="q18" value="D"> D. Síndrome de Bartter con hiperreninemia compensadora.</label>
+            </div>
+            <div class="feedback" id="fb-q18"></div>
+        </div>
+
+        <div class="question-card" data-q="19" data-answer="B">
+            <div class="question-title">19. ¿Cuál es el estímulo fisiológico inicial normal que activa la liberación de renina por las células yuxtaglomerulares en el aparato yuxtaglomerular renal?</div>
+            <div class="options-list">
+                <label class="option-label"><input type="radio" name="q19" value="A"> A. El aumento en la presión hidrostática dentro de la arteriola aferente y la alta concentración de sodio en el túbulo contorneado distal.</label>
+                <label class="option-label"><input type="radio" name="q19" value="B"> B. La disminución de la presión arterial en la arteriola aferente, la reducción en la carga de sodio filtrada detectada por la mácula densa y la activación del sistema nervioso simpático.</label>
+                <label class="option-label"><input type="radio" name="q19" value="C"> C. La hiperinsulinemia plasmática directa sobre los receptores tubulares colectores.</label>
+                <label class="option-label"><input type="radio" name="q19" value="D"> D. La saturación de los transportadores SGLT2 en el túbulo proximal.</label>
+            </div>
+            <div class="feedback" id="fb-q19"></div>
+        </div>
+
+        <div class="question-card" data-q="20" data-answer="A">
+            <div class="question-title">20. ¿Qué enzima clave es responsable de convertir el angiotensinógeno hepático en angiotensina I en la circulación sanguínea?</div>
+            <div class="options-list">
+                <label class="option-label"><input type="radio" name="q20" value="A"> A. La renina secretada por el riñón.</label>
+                <label class="option-label"><input type="radio" name="q20" value="B"> B. La enzima convertidora de angiotensina (ECA) pulmonar.</label>
+                <label class="option-label"><input type="radio" name="q20" value="C"> C. La aldosterona sintasa suprarrenal.</label>
+                <label class="option-label"><input type="radio" name="q20" value="D"> D. La calicreína plasmática.</label>
+            </div>
+            <div class="feedback" id="fb-q20"></div>
+        </div>
+
+        <div class="question-card" data-q="21" data-answer="D">
+            <div class="question-title">21. ¿Cuál es el mecanismo de acción a nivel tubular renal de la aldosterona cuando se une a sus receptores mineralocorticoideos en las células principales del túbulo colector?</div>
+            <div class="options-list">
+                <label class="option-label"><input type="radio" name="q21" value="A"> A. Estimula la reabsorción masiva de potasio y la secreción activa de sodio.</label>
+                <label class="option-label"><input type="radio" name="q21" value="B"> B. Bloquea la acción de la hormona antidiurética en el conducto colector medular.</label>
+                <label class="option-label"><input type="radio" name="q21" value="C"> C. Inhibe la bomba Na+/K+-ATPasa basolateral para inducir natriuresis directa.</label>
+                <label class="option-label"><input type="radio" name="q21" value="D"> D. Incrementa la expresión y actividad de los canales epiteliales de sodio (ENaC) apicales y de las bombas Na+/K+-ATPasa basolaterales, promoviendo la reabsorción de sodio y agua, y la excreción de potasio e hidrogeniones.</label>
+            </div>
+            <div class="feedback" id="fb-q21"></div>
+        </div>
+
+        <!-- CASO 8: Ampliación de Perfil Lipídico Avanzado y Ateroesclerosis -->
+        <h2 class="section-title">Caso Clínico 8: Paciente con Antecedente de Infarto y Evaluación Completa de Lipoproteínas</h2>
+        <div class="case-study">
+            <p>Paciente masculino de 62 años con antecedente de infarto agudo de miocardio hace 1 año, acude a revisión cardiológica estricta. Está bajo tratamiento con estatinas de alta potencia pero presenta valores limítrofes.<br><br>
+            <strong>Resultados de laboratorio avanzados:</strong><br>
+            • Colesterol Total: 185 mg/dL<br>
+            • Colesterol LDL: 95 mg/dL (Aún por encima de la meta estricta < 55 mg/dL para muy alto riesgo)<br>
+            • Apolipoproteína B (ApoB): 110 mg/dL (Elevada)<br>
+            • Lipoproteína(a) [Lp(a)]: 75 mg/dL (Elevada, factor de riesgo independiente)</p>
+        </div>
+
+        <div class="question-card" data-q="22" data-answer="B">
+            <div class="question-title">22. ¿Qué representa la Apolipoproteína B (ApoB) en la evaluación del perfil lipídico avanzado de este paciente de muy alto riesgo cardiovascular?</div>
+            <div class="options-list">
+                <label class="option-label"><input type="radio" name="q22" value="A"> A. Es la proteína estructural principal exclusiva de las lipoproteínas HDL protectoras.</label>
+                <label class="option-label"><input type="radio" name="q22" value="B"> B. Es la apolipoproteína estructural mayor presente en todas las lipoproteínas aterogénicas (LDL, VLDL, IDL, Lp(a)), reflejando el número total de partículas aterogénicas circulantes.</label>
+                <label class="option-label"><input type="radio" name="q22" value="C"> C. Mide exclusivamente la cantidad de quilomicrones absorbidos en el intestino delgado.</label>
+                <label class="option-label"><input type="radio" name="q22" value="D"> D. Es una enzima hepática que destruye el colesterol libre plasmático.</label>
+            </div>
+            <div class="feedback" id="fb-q22"></div>
+        </div>
+
+        <div class="question-card" data-q="23" data-answer="A">
+            <div class="question-title">23. ¿Por qué la elevación de la Lipoproteína(a) [Lp(a)] constituye un factor de riesgo cardiovascular independiente y significativo para cardiopatía isquémica prematura?</div>
+            <div class="options-list">
+                <label class="option-label"><input type="radio" name="q23" value="A"> A. Debido a su homología estructural con el plasminógeno, compite con este inhibiendo la fibrinólisis y promoviendo la trombosis, además de poseer alta capacidad aterogénica en el endotelio.</label>
+                <label class="option-label"><input type="radio" name="q23" value="B"> B. Porque acelera la síntesis de albúmina en los sinusoides hepáticos.</label>
+                <label class="option-label"><input type="radio" name="q23" value="C"> C. Porque neutraliza por completo la acción vasodilatadora del óxido nítrico plaquetario.</label>
+                <label class="option-label"><input type="radio" name="q23" value="D"> D. Porque estimula la absorción masiva de triglicéridos en el tejido adiposo pardo.</label>
+            </div>
+            <div class="feedback" id="fb-q23"></div>
+        </div>
+
+        <!-- CASO 9: Ampliación de Perfil Hepático y Enzimas Colestásicas -->
+        <h2 class="section-title">Caso Clínico 9: Paciente con Dolor en Hipocondrio Derecho y Fosfatasa Alcalina Elevada</h2>
+        <div class="case-study">
+            <p>Paciente femenina de 48 años acude por dolor cólico en hipocondrio derecho posterior a ingesta de grasas, acompañado de febrícula y leve ictericia escleral. Se solicitan paraclínicos de perfil hepático completo.<br><br>
+            <strong>Resultados de laboratorio:</strong><br>
+            • Bilirrubina Total: 4.2 mg/dL (A predominio directo/conjugado)<br>
+            • Fosfatasa Alcalina (FA): 420 U/L (Marcadamente elevada)<br>
+            • Gamma-Glutamil Transferasa (GGT): 350 U/L (Elevada)<br>
+            • AST y ALT: Levemente elevadas (< 2 veces el valor normal)</p>
+        </div>
+
+        <div class="question-card" data-q="24" data-answer="C">
+            <div class="question-title">24. Con una Fosfatasa Alcalina (FA) muy elevada y una GGT también elevada en un cuadro de dolor cólico biliar, ¿cómo se interpreta el origen clínico de la elevación de la fosfatasa alcalina?</div>
+            <div class="options-list">
+                <label class="option-label"><input type="radio" name="q24" value="A"> A. Origen osteoblástico exclusivo por remodelación ósea acelerada.</label>
+                <label class="option-label"><input type="radio" name="q24" value="B"> B. Origen placentario secundario a gestación oculta.</label>
+                <label class="option-label"><input type="radio" name="q24" value="C"> C. Origen hepatobiliar (colestásico), confirmado por la elevación concomitante de la GGT que corrobora la afección de la vía biliar.</label>
+                <label class="option-label"><input type="radio" name="q24" value="D"> D. Origen exclusivamente renal por filtración glomerular alterada.</label>
+            </div>
+            <div class="feedback" id="fb-q24"></div>
+        </div>
+
+        <div class="submit-container">
+            <button type="button" class="btn-submit" onclick="gradeExam()">Calificar Examen UDES</button>
+        </div>
+    </form>
+
+    <div id="results-modal">
+        <h3 id="score-title">Resultados de la Evaluación UDES</h3>
+        <p id="score-text"></p>
+    </div>
+</div>
+
+<script>
+function gradeExam() {
+    const answers = {
+        q1: 'B', q2: 'A', q3: 'C', q4: 'B', q5: 'A',
+        q6: 'A', q7: 'B', q8: 'B', q9: 'C', q10: 'A',
+        q11: 'B', q12: 'A', q13: 'D', q14: 'A', q15: 'C',
+        q16: 'B', q17: 'A', q18: 'C', q19: 'B', q20: 'A',
+        q21: 'D', q22: 'B', q23: 'A', q24: 'C'
+    };
+
+    let score = 0;
+    let total = 24;
+
+    for (let key in answers) {
+        const fb = document.getElementById('fb-' + key);
+        let userVal = "";
+        const radios = document.getElementsByName(key);
+        for (let r of radios) {
+            if (r.checked) userVal = r.value;
+        }
+
+        if (userVal === answers[key]) {
+            score++;
+            fb.textContent = "¡Correcto!";
+            fb.className = "feedback correct-feedback";
+        } else {
+            fb.textContent = "Incorrecto. La respuesta correcta es la opción " + answers[key];
+            fb.className = "feedback incorrect-feedback";
+        }
+        fb.style.display = "block";
+    }
+
+    const modal = document.getElementById('results-modal');
+    const scoreText = document.getElementById('score-text');
+    scoreText.innerHTML = `Has obtenido <strong>${score}</strong> de <strong>${total}</strong> respuestas correctas en la prueba UDES.`;
+    modal.style.display = "block";
+    modal.scrollIntoView({ behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>
